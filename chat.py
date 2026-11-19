@@ -1,7 +1,10 @@
 from model import model
 import torch
 
+from main import device
+
 def continue_sentence(sentence, chars_to_predict, include_input_sentence=True):
+
 
     inputs = sentence
 
@@ -9,7 +12,7 @@ def continue_sentence(sentence, chars_to_predict, include_input_sentence=True):
 
     while(chars_to_predict):
 
-        prediction = torch.argmax(model(inputs)).to("cuda")
+        prediction = torch.argmax(model(inputs)).to(device)
 
         inputs = inputs.tolist()
 
@@ -19,7 +22,7 @@ def continue_sentence(sentence, chars_to_predict, include_input_sentence=True):
 
         predictions.append(prediction)
 
-        inputs = torch.tensor(inputs, dtype=torch.float32).to("cuda")
+        inputs = torch.tensor(inputs, dtype=torch.float32).to(device)
 
         chars_to_predict -= 1
 

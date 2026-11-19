@@ -1,5 +1,7 @@
 from tokenizer import detokenize_tensor_to_string, tokenize_string
 
+from main import device
+
 def do_simple_tests(model, training_inputs):
     """
     Simple tests to see how the model behaves
@@ -39,5 +41,5 @@ def do_simple_tests(model, training_inputs):
 
 
     print("\033[34m", end="")
-    print(detokenize_tensor_to_string(continue_sentence(tokenize_string(msg).to("cuda"), 200, include_input_sentence=False)))
+    print(detokenize_tensor_to_string(continue_sentence(tokenize_string(msg).to(device), 200, include_input_sentence=False)))
     print("\033[0m")
