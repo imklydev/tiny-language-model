@@ -1,12 +1,11 @@
 from tokenizer import detokenize_tensor_to_string, tokenize_string
 
-from main import device
-
 def do_simple_tests(model, training_inputs):
     """
     Simple tests to see how the model behaves
     """
 
+    device = next(model.parameters()).device
 
     model.eval()
 

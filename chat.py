@@ -1,10 +1,9 @@
 from model import model
 import torch
 
-from main import device
-
 def continue_sentence(sentence, chars_to_predict, include_input_sentence=True):
 
+    device = "cuda" if sentence.is_cuda else "cpu"
 
     inputs = sentence
 
