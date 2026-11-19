@@ -2,7 +2,7 @@ should_train_model = True if input("Should train model? (y/N): ") == 'y' else Fa
 
 from load_dataset import get_raw_data
 
-raw_data = get_raw_data(1)
+raw_data = get_raw_data(50)
 
 from tokenizer import tokenize
 
@@ -27,7 +27,7 @@ model = model.to(device)
 from train import train_model
 
 if should_train_model:
-    train_model(model, 100, device, training_inputs, training_outputs)
+    train_model(model, 10, device, training_inputs, training_outputs)
     save_model()
 else:
     model.load_state_dict(load_model())

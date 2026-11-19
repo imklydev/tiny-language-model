@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 
+import torch.nn.functional as F
+
 import model_variables
 
 class TinyLanguageModel(nn.Module):
@@ -9,11 +11,13 @@ class TinyLanguageModel(nn.Module):
 
 
         self.model = nn.Sequential(
-            nn.Linear(model_variables.IN_FEATURES, 512),
+            nn.Linear(model_variables.IN_FEATURES * model_variables.VOCABULARY_SIZE, 1024),
             nn.ReLU(),
-            nn.Linear(512, 128),
+            nn.Linear(1024, 512),
             nn.ReLU(),
-            nn.Linear(128, model_variables.VOCABULARY_SIZE)
+            nn.Linear(512, 256),
+            nn.ReLU(),
+            nn.Linear(256, model_variables.VOCABULARY_SIZE)
         )
 
 
@@ -22,10 +26,13 @@ class TinyLanguageModel(nn.Module):
         missing = model_variables.IN_FEATURES - x.shape[-1]
 
         if missing > 0:
-            x = nn.functional.pad(x, (0, missing))
+            x = nn.functional.pad(x, (missing, 0))
 
         if missing < 0:
             x = x[..., -missing:]
+
+        x = F.one_hot(x.to(torch.long), model_variables.VOCABULARY_SIZE).float()
+        x = x.flatten(start_dim=-2)
         
         return self.model(x)
 
