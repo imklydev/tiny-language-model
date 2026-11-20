@@ -5,23 +5,30 @@ import torch.nn.functional as F
 
 import model_variables
 
+import torch
+import torch.nn as nn
+
 class TinyLanguageModel(nn.Module):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, embedding_dim=64, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.embedding = nn.Embedding(
+            num_embeddings=model_variables.VOCABULARY_SIZE,
+            embedding_dim=embedding_dim,
+        )
 
         self.model = nn.Sequential(
-            nn.Linear(model_variables.IN_FEATURES * model_variables.VOCABULARY_SIZE, 1024),
+            nn.Linear(model_variables.IN_FEATURES * embedding_dim, 1024),
             nn.ReLU(),
             nn.Linear(1024, 512),
             nn.ReLU(),
             nn.Linear(512, 256),
             nn.ReLU(),
-            nn.Linear(256, model_variables.VOCABULARY_SIZE)
+            nn.Linear(256, model_variables.VOCABULARY_SIZE),
         )
 
-
     def forward(self, x):
+        x = x.to(torch.long)
 
         missing = model_variables.IN_FEATURES - x.shape[-1]
 
@@ -31,9 +38,9 @@ class TinyLanguageModel(nn.Module):
         if missing < 0:
             x = x[..., -missing:]
 
-        x = F.one_hot(x.to(torch.long), model_variables.VOCABULARY_SIZE).float()
-        x = x.flatten(start_dim=-2)
-        
+        x = self.embedding(x)              # (..., IN_FEATURES, embedding_dim)
+        x = x.flatten(start_dim=-2)        # (..., IN_FEATURES * embedding_dim)
+
         return self.model(x)
 
 model = TinyLanguageModel()
