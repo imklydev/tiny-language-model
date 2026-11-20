@@ -7,12 +7,15 @@ The dataset used for training is (a small portion of) the huge [Hugging Face Wik
   -  Very simple training loop
   -  Simple tests to see how the model behaves
 
-## Showcase
+## Showcases
 <img width="971" height="179" alt="Model completing a paragraph that was in its training data perfectly" src="https://github.com/user-attachments/assets/b347bc93-ba8c-45ab-b24c-90bcef147ce4" />
 <img width="970" height="90" alt="Model failing horribly at trying to complete a sentence not in its training dataset" src="https://github.com/user-attachments/assets/2682f154-ca3b-4dc6-b136-7da6a43be003" />
 
 <i>An example of an early working version of this model, dangerously overfitted ;(</i>
 
+<img width="824" height="260" alt="image" src="https://github.com/user-attachments/assets/c307804d-9640-4cb8-b23b-0e2cfd92c049" />
+
+<i>A (slightly) more advanced version, with embedding and padding being better implemented</i>
 
 ## Trying it yourself
 Dependencies:
