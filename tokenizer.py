@@ -4,10 +4,11 @@ import torch
 
 import string
 
-# index 0 is reserved for unknown characters
+# index 0 and 1 are UNKNOWN and PAD tokens
 UNK = "\x00"
+PAD = "\x01"
 VOCAB = (
-    [UNK]
+    [UNK, PAD]
     + list(string.ascii_lowercase)
     + list(string.ascii_uppercase)
     + list(string.digits)
@@ -17,6 +18,8 @@ VOCAB = (
 
 CHAR_TO_ID = {c: i for i, c in enumerate(VOCAB)}
 ID_TO_CHAR = {i: c for c, i in CHAR_TO_ID.items()}
+
+PAD_ID = CHAR_TO_ID[PAD]
 
 model_variables.VOCABULARY_SIZE = len(VOCAB)
 

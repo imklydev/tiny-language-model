@@ -5,6 +5,8 @@ import torch.nn.functional as F
 
 import model_variables
 
+from tokenizer import PAD_ID
+
 import torch
 import torch.nn as nn
 
@@ -15,6 +17,7 @@ class TinyLanguageModel(nn.Module):
         self.embedding = nn.Embedding(
             num_embeddings=model_variables.VOCABULARY_SIZE,
             embedding_dim=embedding_dim,
+            padding_idx=PAD_ID
         )
 
         self.model = nn.Sequential(
@@ -33,10 +36,10 @@ class TinyLanguageModel(nn.Module):
         missing = model_variables.IN_FEATURES - x.shape[-1]
 
         if missing > 0:
-            x = nn.functional.pad(x, (missing, 0))
+            x = nn.functional.pad(x, (missing, 0), value=PAD_ID)
 
         if missing < 0:
-            x = x[..., -missing:]
+            x = x[..., -model_variables.IN_FEATURES:]
 
         x = self.embedding(x)              # (..., IN_FEATURES, embedding_dim)
         x = x.flatten(start_dim=-2)        # (..., IN_FEATURES * embedding_dim)
