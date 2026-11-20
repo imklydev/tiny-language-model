@@ -13,7 +13,7 @@ The dataset used for training is (a small portion of) the huge [Hugging Face Wik
 
 <i>An example of an early working version of this model, dangerously overfitted ;(</i>
 
-<img width="824" height="260" alt="image" src="https://github.com/user-attachments/assets/c307804d-9640-4cb8-b23b-0e2cfd92c049" />
+<img width="826" height="240" alt="Model following basic grammar rules, but repeating itself gravely" src="https://github.com/user-attachments/assets/95ab68e4-105f-4b41-acbf-4cc52e088af7" />
 
 <i>A (slightly) more advanced version, with embedding and padding being better implemented</i>
 
