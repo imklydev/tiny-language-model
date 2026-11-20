@@ -1,6 +1,6 @@
 # Tiny Language Model
 A project made to learn more about machine learning, specifically how LLMs work, by training a small text model from scratch in PyTorch.
-The dataset used for training is (a small portion of) the huge [Hugging Face Wikipedia dataset](https://huggingface.co/datasets/wikimedia/wikipedia)
+The dataset used for training is (a small portion of) the [Hugging Face Wikipedia dataset](https://huggingface.co/datasets/wikimedia/wikipedia)
 
 ## Cool-ish features
   -  Custom per-character tokenizer
