@@ -21,11 +21,11 @@ class TinyLanguageModel(nn.Module):
         )
 
         self.model = nn.Sequential(
-            nn.Linear(model_variables.IN_FEATURES * embedding_dim, 1024),
+            nn.Linear(model_variables.IN_FEATURES * embedding_dim, 512),
             nn.ReLU(),
-            nn.Linear(1024, 512),
+            nn.Linear(512, 1024),
             nn.ReLU(),
-            nn.Linear(512, 256),
+            nn.Linear(1024, 256),
             nn.ReLU(),
             nn.Linear(256, model_variables.VOCABULARY_SIZE),
         )

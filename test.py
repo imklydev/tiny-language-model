@@ -29,16 +29,18 @@ def do_simple_tests(model, training_inputs):
 
     print("-- test 2 --")
 
-    prompt = "Input a message: "
-    msg = input(prompt)
+    while(True):
+        prompt = "Input a message: "
+        msg = input(prompt)
 
-    # move printing cursor to the end of the last line to make the generated text to apear continuously
-    import shutil
-    cols = shutil.get_terminal_size().columns
-    col = (len(prompt) + len(msg)) % cols + 1
-    print(f"\033[A\33[{col}G", end="", flush=True)
+        # move printing cursor to the end of the last line to make the generated text to apear continuously
+        import shutil
+        cols = shutil.get_terminal_size().columns
+        col = (len(prompt) + len(msg)) % cols + 1
+        print(f"\033[A\33[{col}G", end="", flush=True)
 
 
-    print("\033[34m", end="")
-    print(detokenize_tensor_to_string(continue_sentence(tokenize_string(msg).to(device), 200, include_input_sentence=False)))
-    print("\033[0m")
+        print("\033[34m", end="")
+        print(detokenize_tensor_to_string(continue_sentence(tokenize_string(msg).to(device), 200, include_input_sentence=False)))
+        print("\033[0m")
+        print()
